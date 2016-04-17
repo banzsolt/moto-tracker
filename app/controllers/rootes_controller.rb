@@ -17,4 +17,11 @@ class RootesController < ApplicationController
 
   end
 
+  def index
+
+    gon.gps_data = Location.last(100)
+    render layout: "application"
+
+  end
+
 end
