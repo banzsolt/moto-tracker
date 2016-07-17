@@ -47,3 +47,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Gon for passing ruby variables to JS
 gem 'gon'
+
+gem 'bcrypt', '~> 3.1', '>= 3.1.11'
