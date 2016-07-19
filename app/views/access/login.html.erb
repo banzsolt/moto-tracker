@@ -1,0 +1,20 @@
+<% @page_title = "- Login" %>
+
+<%= form_tag(:action => 'attempt_login') do %>
+  <%= text_field_tag(:email,
+                     nil,
+                     maxlength: '254',
+                     required: '',
+                     placeholder: 'emabil',
+                     autofocus: 'autofocus')%>
+  <%= password_field_tag(:password,
+                         nil,
+                         maxlength: '254',
+                         required: 'password',
+                         placeholder: '',
+                         autofocus: 'autofocus')%>
+  <%= submit_tag('Login',
+                 autofocus: 'autofocus',
+                 id: 		'submit',
+                 class: 		'button') %>
+<% end %>

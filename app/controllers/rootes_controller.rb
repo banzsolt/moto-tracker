@@ -3,6 +3,8 @@ class RootesController < ApplicationController
   skip_before_filter  :verify_authenticity_token
   layout false
 
+  before_action :confirm_logged_in, :except => [:new_entry]
+
   def new_entry
 
     token = request.headers['device-token']
@@ -14,8 +16,6 @@ class RootesController < ApplicationController
       Location.parseNMEA183(data, device.id)
       render json: true
     end
-
-
 
   end
 
