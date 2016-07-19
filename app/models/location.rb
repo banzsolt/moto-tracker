@@ -19,6 +19,8 @@ class Location < ActiveRecord::Base
     if user.trackSpeed
       location.speed = data[7].to_f * 1.15078
     end
+    location.save
+
     return location
 
   end
