@@ -21,6 +21,15 @@ class RootesController < ApplicationController
 
   def index
 
+
+    @user = User.find(session[:user]["id"])
+    @devices = @user.devices
+
+    @selectedDevice = @user.devices.first
+
+    puts "The devices are"
+    puts @devices
+
     gon.gps_data = Location.last(100)
     render layout: "application"
 

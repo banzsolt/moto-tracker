@@ -22,4 +22,11 @@ class AccessController < ApplicationController
 
   end
 
+  def logout
+
+    session[:user] = null
+    redirect_to(:controller => 'access', :action => 'login')
+
+  end
+
 end

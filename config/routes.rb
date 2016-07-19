@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'rootes#index'
+  root 'access#login'
   match ':controller(/:action(/:id))', :via => [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.

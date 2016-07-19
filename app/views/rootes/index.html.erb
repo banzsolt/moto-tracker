@@ -4,5 +4,26 @@
 
 <div id="map"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhjvuQMbdbYb4YmPcgkl6h7qYcxPpZmIw&callback=initMap"
         async defer></script>
+
+<%= form_tag(:action => 'test') do%>
+    <%= collection_select :selected_device, :id, @devices, :id, :description %>
+    <%= submit_tag('Login',
+                   autofocus: 'autofocus',
+                   id: 		'submit',
+                   class: 		'button') %>
+<% end %>
+
+
+<a href="/access/logout">
+  <button>
+    Log Out
+  </button>
+</a>
+
+<a href="/rootes/create_new_device">
+  <button>
+    Create New Device
+  </button>
+</a>
