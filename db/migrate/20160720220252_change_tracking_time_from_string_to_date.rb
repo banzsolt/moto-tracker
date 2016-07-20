@@ -1,11 +1,8 @@
 class ChangeTrackingTimeFromStringToDate < ActiveRecord::Migration
 
-  def up
-    change_column :locations, :time, :datetime
-  end
-
-  def down
-    change_column :locations, :time, :string
+  def change
+    remove_column :locations, :time
+    add_column :locations, :time, :datetime
   end
 
 end
