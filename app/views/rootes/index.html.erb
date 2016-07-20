@@ -7,23 +7,36 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhjvuQMbdbYb4YmPcgkl6h7qYcxPpZmIw&callback=initMap"
         async defer></script>
 
-<%= form_tag(:action => 'test') do%>
+<%= form_tag(:action => 'index') do%>
     <%= collection_select :selected_device, :id, @devices, :id, :description %>
-    <%= submit_tag('Login',
+    <%= submit_tag('Track Device',
                    autofocus: 'autofocus',
                    id: 		'submit',
                    class: 		'button') %>
 <% end %>
 
 
+
+
+<%= form_tag(:action => 'create_device') do%>
+    <%= text_field(:description,
+                   nil,
+                   maxlength: '50',
+                   required: '',
+                   placeholder: 'Description',
+                   autofocus: 'autofocus')%>
+    <%= submit_tag('Track Device',
+                   autofocus: 'autofocus',
+                   id: 		'submit',
+                   class: 		'button') %>
+<% end %>
+
+
+<br>
+<br>
+<br>
 <a href="/access/logout">
   <button>
     Log Out
-  </button>
-</a>
-
-<a href="/rootes/create_new_device">
-  <button>
-    Create New Device
   </button>
 </a>

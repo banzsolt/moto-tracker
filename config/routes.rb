@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'access#login'
   match ':controller(/:action(/:id))', :via => [:get, :post]
-  match '*path' => redirect('/'), via: :get
+  match '*path' => redirect('/'), via: :get unless Rails.env.development?
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
