@@ -1,8 +1,23 @@
 Rails.application.routes.draw do
 
   root 'access#login'
+
+  namespace :api, :defaults => {:format => :json} do
+    namespace :v1 do
+
+      resource :location do
+        collection do
+          post 'new', to: 'locations#new'
+        end
+      end
+
+    end
+
+  end
+
   match ':controller(/:action(/:id))', :via => [:get, :post]
   match '*path' => redirect('/'), via: :get unless Rails.env.development?
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
