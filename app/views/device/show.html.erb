@@ -1,0 +1,33 @@
+<%= form_tag(:action => 'new') do%>
+    <%= text_field(:description,
+                   nil,
+                   maxlength: '50',
+                   required: '',
+                   placeholder: 'Description',
+                   autofocus: 'autofocus')%>
+    <%= submit_tag('Create Device',
+                   autofocus: 'autofocus',
+                   id: 		'submit',
+                   class: 		'button') %>
+<% end %>
+
+<table id="t01" style="width:50%; border-spacing: 5px;">
+  <tr>
+    <th>No.</th>
+    <th>Description</th>
+    <th>Track Speed?</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% index = 1 %>
+  <% @user.devices.where('deleted = false').order(:id).each do |device| %>
+      <tr>
+        <td><a href=""><%= index %></a></td>
+        <td><a href=""><%= device.description %></a></td>
+        <td><a href=""><%= device.track_speed ? 'Yes' : 'No' %></a></td>
+        <td><a href="/device/edit/<%= device.id%>">Edit</a></td>
+        <td><a href="/device/delete/<%= device.id%>">Delete</a></td>
+      </tr>
+      <% index += 1 %>
+  <% end %>
+</table>

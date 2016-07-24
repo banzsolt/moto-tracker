@@ -5,41 +5,37 @@ class RootesController < ApplicationController
   def index
 
     @user = User.find(session[:user]['id'])
-    @devices = @user.devices
+
+    locations = nil
 
     if !params[:selected_device].nil?
       @seleceted_device = Device.where('id = ? AND user_id = ?', params[:selected_device][:id], session[:user]['id']).first
+
+      date_from = DateTime.parse("#{params[:selected_device]['date_from(1i)']}-#{params[:selected_device]['date_from(2i)']}-#{params[:selected_device]['date_from(3i)']}")
+      date_to = DateTime.parse("#{params[:selected_device]['date_to(1i)']}-#{params[:selected_device]['date_to(2i)']}-#{params[:selected_device]['date_to(3i)']}")
+
+      locations = @seleceted_device.locations.where('time BETWEEN ? AND ?', date_from, date_to).last(100)
+
     end
+
     if @seleceted_device.nil?
       @seleceted_device = @user.devices.first
     end
 
-    locations = nil
+
     if !@seleceted_device.nil?
-      locations = @seleceted_device.locations.last(100)
+      if params[:selected_device].nil?
+        locations = @seleceted_device.locations.last(100)
+      end
     end
+
     if locations.nil? || locations.count == 0
       locations = [Location.new(:latitude => 0, :longitude => 0)]
+      @seleceted_device = Device.new(:description => '')
     end
     gon.gps_data = locations
 
     render layout: 'application'
-
-  end
-
-  def create_device
-
-    device = Device.new
-    device.description = params[:description].first
-    device.user_id = session[:user]['id']
-
-    object= [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-    token = (0...50).map { object[rand(object.length)] }.join
-
-    device.device_token = token
-    device.save
-
-    redirect_to(:controller => 'rootes', :action => 'index')
 
   end
 

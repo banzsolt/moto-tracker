@@ -2,13 +2,20 @@
 <%= javascript_include_tag('rootes.js')%>
 
 
+<h1><%= @seleceted_device.description %></h1>
+
 <div id="map"></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhjvuQMbdbYb4YmPcgkl6h7qYcxPpZmIw&callback=initMap"
         async defer></script>
 
 <%= form_tag(:action => 'index') do%>
-    <%= collection_select :selected_device, :id, @devices, :id, :description %>
+    <div>Device</div>
+    <%= collection_select :selected_device, :id, @user.devices.where('deleted = false').order(:id), :id, :description %>
+    <div>Date From</div>
+    <%= date_select :selected_device, :date_from %>
+    <div>Date To</div>
+    <%= date_select :selected_device, :date_to %>
     <%= submit_tag('Track Device',
                    autofocus: 'autofocus',
                    id: 		'submit',
@@ -17,19 +24,14 @@
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<%= form_tag(:action => 'create_device') do%>
-    <%= text_field(:description,
-                   nil,
-                   maxlength: '50',
-                   required: '',
-                   placeholder: 'Description',
-                   autofocus: 'autofocus')%>
-    <%= submit_tag('Track Device',
-                   autofocus: 'autofocus',
-                   id: 		'submit',
-                   class: 		'button') %>
-<% end %>
+
+<a href="/device/index">My Devices</a>
 
 
 <br>

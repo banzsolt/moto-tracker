@@ -11,17 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720220252) do
+ActiveRecord::Schema.define(version: 20160724152732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "devices", force: :cascade do |t|
-    t.string   "device_token",             null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "user_id",      default: 0, null: false
+    t.string   "device_token",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "user_id",      default: 0,     null: false
     t.text     "description"
+    t.boolean  "track_speed",  default: true
+    t.boolean  "deleted",      default: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -35,11 +37,10 @@ ActiveRecord::Schema.define(version: 20160720220252) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "password_digest",                null: false
-    t.string   "email",                          null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "trackSpeed",      default: true, null: false
+    t.string   "password_digest", null: false
+    t.string   "email",           null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end
