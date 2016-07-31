@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resource :location do
         collection do
           post 'new', to: 'locations#new'
+          post 'sms', to: 'locations#sms'
+          get 'sms', to: 'locations#sms'
         end
       end
 

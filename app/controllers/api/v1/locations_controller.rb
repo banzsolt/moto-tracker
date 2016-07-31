@@ -17,4 +17,13 @@ class Api::V1::LocationsController < ApplicationController
 
   end
 
+  def sms
+
+    test = Location.new
+    test.latitude = params.to_s
+    test.save
+    render json: true
+
+  end
+
 end
