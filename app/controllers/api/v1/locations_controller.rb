@@ -19,10 +19,14 @@ class Api::V1::LocationsController < ApplicationController
 
   def sms
 
-    test = Location.new
-    test.latitude = params.to_s
-    test.save
-    render json: true
+    device = Device.where('phone_number = ?', params[:sender])[0]
+    if device.nil?
+      render json: false
+    else
+      data = params[:message].split(',')
+      Location.parseNMEA183(data, device.id)
+      render json: true
+    end
 
   end
 
