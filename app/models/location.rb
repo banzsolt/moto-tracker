@@ -6,23 +6,27 @@ class Location < ActiveRecord::Base
 
     device = Device.find(device_id)
 
-    lat = "#{data[3][0,2]}.#{(data[3][2,7].to_f * 100 / 60).to_s.tr('.','')}"
-    long = "#{data[5][0,3]}.#{(data[5][3,7].to_f * 100 / 60).to_s.tr('.','')}"
+    data.foreach do |element|
 
-    location = Location.new(
-        device_id: device_id,
-        latitude: data[4] == 'S' ? '-' + lat : lat,
-        longitude: data[6] == 'W' ? '-' + long : long
-    )
+      lat = "#{element[3][0,2]}.#{(element[3][2,7].to_f * 100 / 60).to_s.tr('.','')}"
+      long = "#{element[5][0,3]}.#{(element[5][3,7].to_f * 100 / 60).to_s.tr('.','')}"
 
-    location.time = DateTime.parse("20#{data[9][4, 2]}-#{data[9][2, 2]}-#{data[9][0, 2]} #{data[1][0, 2]}:#{data[1][2, 2]}:#{data[1][4, 2]}")
+      location = Location.new(
+          device_id: device_id,
+          latitude: element[4] == 'S' ? '-' + lat : lat,
+          longitude: element[6] == 'W' ? '-' + long : long
+      )
 
-    if device.track_speed
-      location.speed = data[7].to_f * 1.15078
+      location.time = DateTime.parse("20#{element[9][4, 2]}-#{element[9][2, 2]}-#{element[9][0, 2]} #{element[1][0, 2]}:#{element[1][2, 2]}:#{element[1][4, 2]}")
+
+      if device.track_speed
+        location.speed = element[7].to_f * 1.15078
+      end
+      location.save
+
     end
-    location.save
 
-    return location
+    #return location
 
   end
 
