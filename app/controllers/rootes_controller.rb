@@ -25,7 +25,7 @@ class RootesController < ApplicationController
 
     if !@seleceted_device.nil?
       if params[:selected_device].nil?
-        locations = @seleceted_device.locations(1000)
+        locations = @seleceted_device.locations(200)
       end
     end
 
