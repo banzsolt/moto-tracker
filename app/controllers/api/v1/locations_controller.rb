@@ -10,8 +10,10 @@ class Api::V1::LocationsController < ApplicationController
     if device.nil?
       render json: false
     else
-      data = params[:data].split(',')
-      Location.parseNMEA183(data, device.id)
+      params[:data].each do |element|
+        data = element.split(',')
+        Location.parseNMEA183(data, device.id)
+      end
       render json: true
     end
 
