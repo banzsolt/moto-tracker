@@ -5,6 +5,7 @@ class RootesController < ApplicationController
   def index
 
     @user = User.find(session[:user]['id'])
+    number_of_history = 1400
 
     locations = nil
 
@@ -14,7 +15,7 @@ class RootesController < ApplicationController
       date_from = DateTime.parse("#{params[:selected_device]['date_from(1i)']}-#{params[:selected_device]['date_from(2i)']}-#{params[:selected_device]['date_from(3i)']}")
       date_to = DateTime.parse("#{params[:selected_device]['date_to(1i)']}-#{params[:selected_device]['date_to(2i)']}-#{params[:selected_device]['date_to(3i)']}")
 
-      locations = @seleceted_device.locations.where('time BETWEEN ? AND ?', date_from, date_to).last(100)
+      locations = @seleceted_device.locations.where('time BETWEEN ? AND ?', date_from, date_to).last(number_of_history)
 
     end
 
@@ -25,7 +26,7 @@ class RootesController < ApplicationController
 
     if !@seleceted_device.nil?
       if params[:selected_device].nil?
-        locations = @seleceted_device.locations.last(200)
+        locations = @seleceted_device.locations.last(number_of_history)
       end
     end
 
